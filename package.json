@@ -13,5 +13,7 @@
     "stream-buffers": "^3.0.2",
     "@sendgrid/mail": "^7.9.0",
     "nanoid": "^4.0.0"
+    "engines": { "node": "18.x" }
+
   }
 }
