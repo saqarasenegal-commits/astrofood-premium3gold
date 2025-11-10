@@ -1,5 +1,5 @@
 {
-  "name": "astrofood-backend",
+  "name": "astrofood-premium3gold",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,7 @@
     "@supabase/supabase-js": "^2.9.0",
     "pdfkit": "^0.13.0",
     "stream-buffers": "^3.0.2",
-    "sendgrid": "^5.2.3",
-    "@sendgrid/mail": "^7.9.0"
+    "@sendgrid/mail": "^7.9.0",
+    "nanoid": "^4.0.0"
   }
 }
