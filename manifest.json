@@ -1,0 +1,11 @@
+{
+  "name": "AstroFood Premium Gold",
+  "short_name": "AstroFood",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png" }
+  ]
+}
