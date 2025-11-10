@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AstroFood Premium Gold — Chef‑AI</title>
+  <meta name="description" content="AstroFood Premium Gold: recettes générées par Chef‑AI (FR/EN/AR), packs payants, QR WhatsApp.">
+  <meta name="theme-color" content="#0f172a">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" href="/assets/icon-192.png" sizes="192x192">
+  <style>
+    :root{ --gold:#FBBF24; --amber:#f59e0b; --bg: radial-gradient(circle at top, #0f172a, #020617 65%); }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{background:var(--bg);color:#fff;display:flex;flex-direction:column;align-items:center;padding:24px}
+    .container{max-width:980px;width:100%;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));border-radius:12px;padding:22px;box-shadow:0 6px 30px rgba(0,0,0,0.6)}
+    header{display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:56px}
+    h1{margin:0;font-size:20px}
+    .gold-legend{font-family:Georgia, 'Times New Roman', serif;color:var(--gold);font-weight:600}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+    select,button{padding:10px 12px;border-radius:8px;border:0;background:#081024;color:#fff;font-weight:600}
+    .btn{cursor:pointer}
+    .result{margin-top:18px;padding:16px;border-radius:10px;background:rgba(255,255,255,0.02);min-height:180px}
+    .modal{position:fixed;left:0;top:0;width:100%;height:100%;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6)}
+    .card{background:#fff;color:#111;border-radius:12px;padding:20px;max-width:680px;width:92%}
+    .card h2{margin-top:0}
+    footer{display:flex;justify-content:space-between;align-items:center;margin-top:20px}
+    .qr{display:flex;align-items:center;gap:12px}
+    .qr img{width:84px;height:84px}
+    @media (max-width:520px){header{flex-direction:column;align-items:flex-start}.controls{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <img src="/assets/logo-premiumgold.png" alt="AstroFood Premium Gold logo">
+        <div>
+          <h1>AstroFood <span class="gold-legend">Premium Gold</span></h1>
+          <div style="font-size:12px;opacity:.9">Recettes générées par Chef‑AI • FR / EN / AR</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:12px;opacity:.85">Pack Premium • Accès numérique</div>
+        <img src="/assets/qr-placeholder.png" alt="QR" style="width:74px;height:74px;margin-top:6px">
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Contrôles AstroFood">
+      <label>
+        Signe
+        <select id="sign">
+          <option value="aries">Bélier</option>
+          <option value="taurus">Taureau</option>
+          <option value="gemini">Gémeaux</option>
+          <option value="cancer">Cancer</option>
+          <option value="leo">Lion</option>
+          <option value="virgo">Vierge</option>
+          <option value="libra">Balance</option>
+          <option value="scorpio">Scorpion</option>
+          <option value="sagittarius">Sagittaire</option>
+          <option value="capricorn">Capricorne</option>
+          <option value="aquarius">Verseau</option>
+          <option value="pisces">Poissons</option>
+        </select>
+      </label>
+
+      <label>
+        Repas
+        <select id="meal">
+          <option value="breakfast">Petit‑déjeuner</option>
+          <option value="lunch">Déjeuner</option>
+          <option value="dinner">Dîner</option>
+        </select>
+      </label>
+
+      <label>
+        Langue
+        <select id="lang">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+          <option value="ar">العربية</option>
+        </select>
+      </label>
+
+      <button class="btn" id="btn-generate">🍳 Générer 3 recettes</button>
+      <button class="btn" id="open-digital-card">📇 Afficher la carte digitale</button>
+      <button class="btn" id="btn-copy" title="Copier la recette">📋 Copier</button>
+      <button class="btn" id="btn-download" title="Télécharger la carte">⬇️ Télécharger</button>
+    </section>
+
+    <div id="out" class="result" role="status" aria-live="polite">
+      <p style="opacity:.9">Sélectionne un signe, un repas et clique sur « Générer 3 recettes » pour obtenir des suggestions adaptées au signe astrologique.</p>
+    </div>
+
+    <footer>
+      <div style="font-size:13px;opacity:.9">© AstroFood Premium Gold</div>
+      <div class="qr">
+        <img src="/assets/qr-astrofood.png" alt="QR AstroFood">
+        <div style="font-size:12px;text-align:right">Scannez pour plus d'infos</div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="modal" class="modal" role="dialog" aria-hidden="true">
+    <div class="card" role="document">
+      <button id="close-modal" style="float:right">Fermer</button>
+      <h2 id="card-title">Carte digitale</h2>
+      <div id="card-body"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = '/api/chefai';
+
+    function setResult(html, isHtml = true){
+      const out = document.getElementById('out');
+      if(isHtml) out.innerHTML = html;
+      else out.textContent = html;
+    }
+
+    function buildPayload(sign, meal, lang){
+      return {
+        sign, meal, lang, mode: 'recipe', count: 3,
+        context: 'premium_gold_theme: preserve tone, poetic line, african recipes included, provide ingredients, steps, nutrition, serving, short poetic line for the card'
+      };
+    }
+
+    async function generate(){
+      const sign = document.getElementById('sign').value;
+      const meal = document.getElementById('meal').value;
+      const lang = document.getElementById('lang').value;
+      const out = document.getElementById('out');
+      out.innerHTML = '🍳 Génération en cours…';
+
+      try{
+        const payload = buildPayload(sign, meal, lang);
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(payload)
+        });
+
+        if(!res.ok){
+          const txt = await res.text();
+          throw new Error('API error: ' + res.status + ' — ' + txt);
+        }
+
+        const data = await res.json();
+        if(!data || !Array.isArray(data.recipes)){
+          throw new Error('Format de réponse inattendu');
+        }
+
+        const html = data.recipes.map((r, i) => `
+          <article style="margin-bottom:14px">
+            <h3>${i+1} — ${r.title}</h3>
+            <p style="opacity:.9;font-style:italic">${r.poem || ''}</p>
+            <strong>Ingrédients</strong>
+            <ul>${(r.ingredients||[]).map(it=>`<li>${it}</li>`).join('')}</ul>
+            <strong>Préparation</strong>
+            <ol>${(r.steps||[]).map(s=>`<li>${s}</li>`).join('')}</ol>
+            <div style="margin-top:8px;font-size:13px;opacity:.95">Nutrition: ${r.nutrition||'—'}</div>
+          </article>
+        `).join('');
+
+        setResult(html);
+
+      }catch(err){
+        console.error(err);
+        setResult('<div style="color:#ffb4b4">Erreur: '+ (err.message || err) +'</div>');
+      }
+    }
+
+    function copyCurrent(){
+      const out = document.getElementById('out').innerText;
+      navigator.clipboard.writeText(out).then(()=>alert('Copié !'))
+        .catch(()=>alert('Impossible de copier'));
+    }
+
+    function downloadCard(){
+      const html = document.getElementById('out').innerHTML;
+      const blob = new Blob([`<html><body>${html}</body></html>`], {type:'text/html'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'astrofood-card.html';
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    function openCard(){
+      const modal = document.getElementById('modal');
+      document.getElementById('card-body').innerHTML = document.getElementById('out').innerHTML || '<p>Pas de recette générée</p>';
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+    }
+    function closeCard(){
+      const modal = document.getElementById('modal');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    (function attach(){
+      const g = document.getElementById('btn-generate');
+      const c = document.getElementById('btn-copy');
+      const d = document.getElementById('btn-download');
+      const o = document.getElementById('open-digital-card');
+      const cl = document.getElementById('close-modal');
+
+      g.removeEventListener && g.removeEventListener('click', generate);
+      g.addEventListener('click', generate);
+
+      c.removeEventListener && c.removeEventListener('click', copyCurrent);
+      c.addEventListener('click', copyCurrent);
+
+      d.removeEventListener && d.removeEventListener('click', downloadCard);
+      d.addEventListener('click', downloadCard);
+
+      o.removeEventListener && o.removeEventListener('click', openCard);
+      o.addEventListener('click', openCard);
+
+      cl.removeEventListener && cl.removeEventListener('click', closeCard);
+      cl.addEventListener('click', closeCard);
+
+      document.getElementById('modal').addEventListener('click', (e)=>{ if(e.target.id === 'modal') closeCard(); });
+    })();
+
+    document.getElementById('lang').addEventListener('change', (e)=>{
+      const v = e.target.value;
+      document.documentElement.lang = v === 'ar' ? 'ar' : 'fr';
+      document.documentElement.dir = v === 'ar' ? 'rtl' : 'ltr';
+    });
+
+    if(!window.__astrofood_inited){ window.__astrofood_inited = true; }
+  </script>
+</body>
+</html>

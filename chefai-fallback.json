@@ -1,0 +1,167 @@
+{
+  "fr": [
+    {
+      "title": "Tiep au lit",
+      "ingredients": [
+        "200g riz cassé",
+        "200g poisson fumé",
+        "1 oignon",
+        "huile d'arachide",
+        "piment (au goût)"
+      ],
+      "steps": [
+        "Rincer le riz",
+        "Faire revenir l'oignon et le poisson",
+        "Cuire le riz avec le bouillon",
+        "Servir chaud"
+      ],
+      "nutrition": "≈520 kcal • 30g protéines • 18g lipides • 60g glucides",
+      "poem": "Un plat chaleureux qui rappelle les marchés du littoral."
+    },
+    {
+      "title": "Yassa au poulet léger",
+      "ingredients": [
+        "1 poulet",
+        "2 oignons",
+        "citron",
+        "huile",
+        "piment"
+      ],
+      "steps": [
+        "Mariner le poulet au citron",
+        "Faire revenir les oignons",
+        "Cuire à feu doux 30 min",
+        "Servir avec du riz"
+      ],
+      "nutrition": "≈480 kcal • 35g protéines • 20g lipides • 40g glucides",
+      "poem": "Acidité et douceur se mêlent comme un matin clair."
+    },
+    {
+      "title": "Salade d'avocat épicée",
+      "ingredients": [
+        "2 avocats",
+        "tomate",
+        "oignon",
+        "jus de citron",
+        "piment"
+      ],
+      "steps": [
+        "Couper les légumes",
+        "Assaisonner",
+        "Mélanger et servir frais"
+      ],
+      "nutrition": "≈300 kcal • 4g protéines • 24g lipides • 18g glucides",
+      "poem": "Fraîcheur verte, souffle du baobab."
+    }
+  ],
+  "en": [
+    {
+      "title": "Grilled Fish & Rice",
+      "ingredients": [
+        "200g broken rice",
+        "grilled fish",
+        "onion",
+        "peanut oil",
+        "lemon"
+      ],
+      "steps": [
+        "Rinse rice",
+        "Grill fish",
+        "Cook rice with stock",
+        "Serve with fish"
+      ],
+      "nutrition": "≈520 kcal • 30g protein • 18g fat • 60g carbs",
+      "poem": "A coastal dish that sings of warm evenings."
+    },
+    {
+      "title": "Chicken Yassa Light",
+      "ingredients": [
+        "1 chicken",
+        "2 onions",
+        "lemon",
+        "oil",
+        "pepper"
+      ],
+      "steps": [
+        "Marinate chicken in lemon",
+        "Sauté onions",
+        "Simmer 30 min",
+        "Serve with rice"
+      ],
+      "nutrition": "≈480 kcal • 35g protein • 20g fat • 40g carbs",
+      "poem": "Tart and tender, like a bright morning."
+    },
+    {
+      "title": "Spicy Avocado Salad",
+      "ingredients": [
+        "2 avocados",
+        "tomato",
+        "onion",
+        "lemon juice",
+        "chili"
+      ],
+      "steps": [
+        "Chop vegetables",
+        "Season",
+        "Toss and serve chilled"
+      ],
+      "nutrition": "≈300 kcal • 4g protein • 24g fat • 18g carbs",
+      "poem": "Green freshness, a breath of baobab."
+    }
+  ],
+  "ar": [
+    {
+      "title": "أرز بالسمك المشوي",
+      "ingredients": [
+        "200غ أرز مكسور",
+        "سمك مشوي",
+        "بصل",
+        "زيت الفول السوداني",
+        "ليمون"
+      ],
+      "steps": [
+        "غسل الأرز",
+        "شواء السمك",
+        "طهي الأرز مع المرق",
+        "تقديم مع السمك"
+      ],
+      "nutrition": "≈520 سعرة • 30غ بروتين • 18غ دهون • 60غ كربوهيدرات",
+      "poem": "طبق ساحلي يهمس بأمسيات دافئة."
+    },
+    {
+      "title": "ياسا الدجاج الخفيف",
+      "ingredients": [
+        "دجاجة واحدة",
+        "2 بصل",
+        "ليمون",
+        "زيت",
+        "فلفل"
+      ],
+      "steps": [
+        "تتبيل الدجاج بالليمون",
+        "قلي البصل",
+        "الطهي 30 دقيقة",
+        "التقديم مع الأرز"
+      ],
+      "nutrition": "≈480 سعرة • 35غ بروتين • 20غ دهون • 40غ كربوهيدرات",
+      "poem": "حموضة ونعومة تلتقيان كصباح صافٍ."
+    },
+    {
+      "title": "سلطة أفوكادو حارة",
+      "ingredients": [
+        "2 أفوكادو",
+        "طماطم",
+        "بصل",
+        "عصير ليمون",
+        "فلفل حار"
+      ],
+      "steps": [
+        "تقطيع الخضار",
+        "التتبيل",
+        "الخلط والتقديم باردًا"
+      ],
+      "nutrition": "≈300 سعرة • 4غ بروتين • 24غ دهون • 18غ كربوهيدرات",
+      "poem": "انتعاش أخضر، نسمة من الباوباب."
+    }
+  ]
+}
