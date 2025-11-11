@@ -1,0 +1,1 @@
+import { nanoid } from 'nanoid'; export default async function handler(req,res){ if(req.method!=='POST') return res.status(405); const {recipe_id} = req.body||{}; if(!recipe_id) return res.status(400).json({error:'recipe_id required'}); return res.status(200).json({checkout_url:'https://example.com'}); }
